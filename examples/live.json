@@ -1,0 +1,56 @@
+{
+  "resources": [
+    {
+      "type": "aws_s3_bucket",
+      "id": "arn:aws:s3:::acme-assets-prod",
+      "name": "acme-assets-prod",
+      "region": "eu-central-1",
+      "account_id": "123456789012"
+    },
+    {
+      "type": "aws_iam_role",
+      "id": "arn:aws:iam::123456789012:role/service/acme-app-task",
+      "name": "acme-app-task",
+      "account_id": "123456789012"
+    },
+    {
+      "type": "aws_cloudwatch_log_group",
+      "id": "arn:aws:logs:eu-central-1:123456789012:log-group:/acme/app:*",
+      "name": "/acme/app",
+      "region": "eu-central-1",
+      "account_id": "123456789012"
+    },
+    {
+      "type": "aws_sqs_queue",
+      "id": "arn:aws:sqs:eu-central-1:123456789012:acme-jobs",
+      "name": "acme-jobs",
+      "region": "eu-central-1",
+      "account_id": "123456789012"
+    },
+    {
+      "type": "aws_route53_record",
+      "id": "acme.example.com",
+      "name": "acme.example.com",
+      "region": "us-east-1"
+    },
+    {
+      "type": "aws_instance",
+      "id": "i-0abc123def4567890",
+      "tags": { "Name": "acme-web", "env": "prod" },
+      "region": "eu-central-1"
+    },
+    {
+      "type": "aws_instance",
+      "id": "i-0f9e8d7c6b5a43210",
+      "tags": { "Name": "acme-web", "env": "prod" },
+      "region": "eu-central-1"
+    },
+    {
+      "type": "aws_security_group",
+      "id": "sg-0dead00beef00cafe",
+      "name": "acme-legacy-bastion",
+      "tags": { "Name": "acme-legacy-bastion" },
+      "region": "eu-central-1"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+type,id,name,tags,region,account_id
+aws_s3_bucket,arn:aws:s3:::acme-assets-prod,acme-assets-prod,Name=acme-assets-prod;env=prod,eu-central-1,123456789012
+aws_iam_role,arn:aws:iam::123456789012:role/service/acme-app-task,acme-app-task,,,123456789012
+aws_instance,i-0abc123def4567890,,Name=web-server;env=prod,eu-central-1,123456789012
+aws_sqs_queue,arn:aws:sqs:eu-central-1:123456789012:acme-jobs,acme-jobs,,eu-central-1,123456789012

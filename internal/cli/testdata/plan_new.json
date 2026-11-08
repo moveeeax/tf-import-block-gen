@@ -1,0 +1,27 @@
+{
+  "format_version": "1.2",
+  "resource_changes": [
+    {
+      "address": "aws_s3_bucket.assets",
+      "mode": "managed",
+      "type": "aws_s3_bucket",
+      "name": "assets",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": { "bucket": "acme-assets-prod" }
+      }
+    },
+    {
+      "address": "aws_dynamodb_table.sessions",
+      "mode": "managed",
+      "type": "aws_dynamodb_table",
+      "name": "sessions",
+      "change": {
+        "actions": ["create"],
+        "before": null,
+        "after": { "name": "acme-sessions" }
+      }
+    }
+  ]
+}

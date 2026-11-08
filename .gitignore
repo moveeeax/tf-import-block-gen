@@ -1,0 +1,18 @@
+# Built binary at the repo root only -- a bare pattern would also swallow the
+# cmd/tf-import-block-gen/ source directory.
+/tf-import-block-gen
+/dist/
+/coverage.out
+
+# Terraform working files people drop next to the examples
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+/imports.tf
+/tfplan
+/tfplan.json
+
+# Fixtures are part of the tests and are always tracked.
+!testdata/**
+!examples/**

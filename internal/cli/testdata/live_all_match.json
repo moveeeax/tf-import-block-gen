@@ -1,0 +1,28 @@
+{
+  "resources": [
+    {
+      "type": "aws_s3_bucket",
+      "id": "arn:aws:s3:::acme-assets-prod",
+      "name": "acme-assets-prod",
+      "region": "eu-central-1",
+      "account_id": "123456789012"
+    },
+    {
+      "type": "aws_iam_role",
+      "id": "arn:aws:iam::123456789012:role/service/acme-app-task",
+      "name": "acme-app-task",
+      "account_id": "123456789012"
+    },
+    {
+      "type": "aws_instance",
+      "id": "i-0abc123def4567890",
+      "tags": { "Name": "web-server", "env": "prod" },
+      "region": "eu-central-1"
+    },
+    {
+      "type": "aws_sqs_queue",
+      "id": "arn:aws:sqs:eu-central-1:123456789012:acme-jobs",
+      "name": "acme-jobs"
+    }
+  ]
+}

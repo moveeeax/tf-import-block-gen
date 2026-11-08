@@ -1,0 +1,71 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        go: ["1.22", "1.23", "stable"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: ${{ matrix.go }}
+
+      - name: gofmt
+        run: |
+          unformatted="$(gofmt -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "gofmt needed on:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: go vet
+        run: go vet ./...
+
+      - name: go test
+        run: go test -race ./...
+
+      - name: build
+        run: go build -o tf-import-block-gen ./cmd/tf-import-block-gen
+
+      - name: smoke the examples
+        run: |
+          set +e
+          ./tf-import-block-gen --plan examples/tfplan.json --inventory examples/live.json --out imports.tf
+          code=$?
+          set -e
+          # The example inventory holds two instances tagged acme-web, so the
+          # expected exit code is 1 (one ambiguity), not 0.
+          if [ "$code" -ne 1 ]; then
+            echo "expected exit 1 from the example, got $code"
+            exit 1
+          fi
+          grep -q 'to = aws_s3_bucket.assets' imports.tf
+          grep -q 'id = "Z1D633PJN98FT9_acme.example.com_A"' imports.tf
+          test "$(grep -c '^import {' imports.tf)" -eq 5
+
+      - name: smoke the CSV inventory
+        run: |
+          set +e
+          ./tf-import-block-gen --plan examples/tfplan.json --inventory examples/live.csv > csv.tf
+          code=$?
+          set -e
+          if [ "$code" -ne 1 ]; then
+            echo "expected exit 1 from the CSV example, got $code"
+            exit 1
+          fi
+          diff <(tail -n +1 imports.tf) <(tail -n +1 csv.tf)

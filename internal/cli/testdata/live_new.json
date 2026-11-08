@@ -1,0 +1,7 @@
+[
+  {
+    "type": "aws_s3_bucket",
+    "id": "acme-assets-prod",
+    "name": "acme-assets-prod"
+  }
+]

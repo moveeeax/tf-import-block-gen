@@ -1,0 +1,14 @@
+[
+  {
+    "type": "aws_instance",
+    "id": "i-0aaaaaaaaaaaaaaa1",
+    "tags": { "Name": "web" },
+    "region": "eu-central-1"
+  },
+  {
+    "type": "aws_instance",
+    "id": "i-0bbbbbbbbbbbbbbb2",
+    "tags": { "Name": "web" },
+    "region": "eu-central-1"
+  }
+]
